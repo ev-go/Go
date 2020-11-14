@@ -9,6 +9,20 @@ import (
 // func Sqrt(x, z float64) float64 {
 // 	if v :=
 // }
+func switchtest(x, n int) string {
+	v := "null"
+	switch x {
+	case n + 0:
+		v = "equal"
+	case n + 1:
+		v = "less by 1"
+	case n + 2:
+		v = "less by 2"
+	default:
+		v = "Too far away."
+	}
+	return v
+}
 
 func main() {
 	z := float64(100)
@@ -61,9 +75,9 @@ func main() {
 
 	fmt.Println("counting")
 
-	for i := 0; i < 10; i++ {
-		defer fmt.Println(i)
-	}
+	// for i := 0; i < 10; i++ {
+	// 	defer fmt.Println(i)
+	// }
 
 	fmt.Println("done")
 
@@ -77,4 +91,7 @@ func main() {
 	p = &j         // point to j
 	*p = *p / 37   // divide j through the pointer
 	fmt.Println(j) // see the new value of j
+
+	fmt.Println("switch tests")
+	fmt.Println(switchtest(3, 2))
 }

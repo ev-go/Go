@@ -21,9 +21,9 @@ func pow(x, n, lim float64) float64 {
 	return lim
 }
 
-	func closesqrt(x float) float64 {
-		if z 
-	}
+// func closesqrt(x float) float64 {
+// 	if z
+// }
 
 func main() {
 	sum := 0
@@ -47,16 +47,15 @@ func main() {
 		pow(3, 3, 20),
 	)
 
-
-
-	fmt.Println(
-		closesqrt (41)
-	)
+	// fmt.Println(
+	// 	closesqrt (41)
+	// )
 
 	z := 0
+	x := 0
 	for i := 0; i < 10; i++ {
-		z += 1
-		z -= (z*z - x) / (2*z)
+		z++
+		z -= (z*z - x) / (2 * z)
 		fmt.Println(sum)
 	}
 	fmt.Println(sum)
