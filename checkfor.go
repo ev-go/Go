@@ -24,6 +24,15 @@ func switchtest(x, n int) string {
 	return v
 }
 
+func zero(x *float64) {
+	*x = 0
+}
+
+func sw(b, y *int) {
+	*y = *b
+	*b = *y
+}
+
 func main() {
 	z := float64(100)
 	x := float64(10)
@@ -80,6 +89,8 @@ func main() {
 	// }
 
 	fmt.Println("done")
+	fmt.Println("switch tests")
+	fmt.Println(switchtest(3, 1))
 
 	i, j := 42, 2701
 
@@ -92,6 +103,8 @@ func main() {
 	*p = *p / 37   // divide j through the pointer
 	fmt.Println(j) // see the new value of j
 
-	fmt.Println("switch tests")
-	fmt.Println(switchtest(3, 2))
+	x = 5
+	zero(&x)
+	fmt.Println(x) // x is still 5
+
 }
