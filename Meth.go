@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 // type Vertex struct {
@@ -164,38 +163,60 @@ import (
 // 	v.Scale(5)
 // 	fmt.Printf("After scaling: %+v, Abs: %v\n", v, v.Abs())
 // }
-type Abser interface {
-	Abs() float64
+// type Abser interface {
+// 	Abs() float64
+// }
+
+// func main() {
+// 	// var a Abser
+// 	f := MyFloat(-math.Sqrt2)
+// 	fmt.Println("f", f)
+// 	v := Vertex{5, 4}
+// 	fmt.Println("v", v)
+
+// 	// a = f // a MyFloat implements Abser
+// 	// fmt.Println("a", a)
+// 	a := &v // a *Vertex implements Abser
+// 	fmt.Println("a", a)
+// 	// In the following line, v is a Vertex (not *Vertex)
+// 	// and does NOT implement Abser.
+// 	// a = v
+
+// 	fmt.Println(a.Abs())
+// 	fmt.Println(f.Abs())
+// }
+
+// type MyFloat float64
+
+// func (f MyFloat) Abs() float64 {
+// 	if f < 0 {
+// 		return float64(-f)
+// 	}
+// 	return float64(f)
+// }
+
+// type Vertex struct {
+// 	X, Y float64
+// }
+
+// func (a *Vertex) Abs() float64 {
+// 	return math.Sqrt(a.X*a.X + a.Y*a.Y)
+// }
+type I interface {
+	M()
+}
+
+type T struct {
+	S string
+}
+
+// This method means type T implements the interface I,
+// but we don't need to explicitly declare that it does so.
+func (k T) M() {
+	fmt.Println(k.S)
 }
 
 func main() {
-	var a Abser
-	f := MyFloat(-math.Sqrt2)
-	v := Vertex{3, 4}
-
-	a = f  // a MyFloat implements Abser
-	a = &v // a *Vertex implements Abser
-
-	// In the following line, v is a Vertex (not *Vertex)
-	// and does NOT implement Abser.
-	a = v
-
-	fmt.Println(a.Abs())
-}
-
-type MyFloat float64
-
-func (f MyFloat) Abs() float64 {
-	if f < 0 {
-		return float64(-f)
-	}
-	return float64(f)
-}
-
-type Vertex struct {
-	X, Y float64
-}
-
-func (v *Vertex) Abs() float64 {
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+	var i I = T{"hello"}
+	i.M()
 }
