@@ -202,21 +202,144 @@ import (
 // func (a *Vertex) Abs() float64 {
 // 	return math.Sqrt(a.X*a.X + a.Y*a.Y)
 // }
-type I interface {
-	M()
-}
+// type I interface {
+// 	M()
+// }
 
-type T struct {
-	S string
-}
+// type T struct {
+// 	S string
+// }
 
-// This method means type T implements the interface I,
-// but we don't need to explicitly declare that it does so.
-func (k T) M() {
-	fmt.Println(k.S)
+// // This method means type T implements the interface I,
+// // but we don't need to explicitly declare that it does so.
+// func (k T) M() {
+// 	fmt.Println(k.S)
+// }
+
+// func main() {
+// 	var i I = T{"hello W"}
+// 	i.M()
+// }
+// type I interface {
+// 	M()
+// }
+
+// type T struct {
+// 	S string
+// }
+
+// func (t *T) M() {
+// 	fmt.Println(t.S)
+// }
+
+// type F float64
+
+// func (f F) M() {
+// 	fmt.Println(f)
+// }
+
+// func main() {
+// 	var i I
+
+// 	i = &T{" i is Hello"}
+// 	describe(i)
+// 	i.M()
+
+// 	i = F(math.Pi)
+// 	describe(i)
+// 	// i.M()
+// }
+
+// func describe(i I) {
+// 	fmt.Printf("desc (%v, %T)\n", i, i)
+// }
+// type I interface {
+// 	M()
+// }
+
+// type T struct {
+// 	S string
+// }
+
+// func (t *T) M() {
+// 	if t == nil {
+// 		fmt.Println("<nil>")
+// 		return
+// 	}
+// 	fmt.Println(t.S)
+// }
+
+// func main() {
+// 	var i I
+
+// 	var t *T
+// 	i = t
+// 	describe(i)
+// 	i.M()
+
+// 	i = &T{"hello"}
+// 	describe(i)
+// 	i.M()
+// }
+
+// func describe(i I) {
+// 	fmt.Printf("(%v, %T)\n", i, i)
+// }
+// type I interface {
+// 	M()
+// }
+// type T struct {
+// 	S string
+// }
+
+// func (t *T) M() {
+// 	if t == nil {
+// 		fmt.Println("<nil>")
+// 		return
+// 	}
+// 	fmt.Println(t.S)
+// }
+
+// func main() {
+// 	var i I
+// 	var v *T
+// 	i = v
+// 	describe(i)
+// 	i.M()
+// }
+
+// func describe(i I) {
+// 	fmt.Printf("(%v, %T)\n", i, i)
+// }
+// func main() {
+// 	var i interface{} = "hello"
+
+// 	s := i.(string)
+// 	fmt.Println(s)
+
+// 	s, ok := i.(string)
+// 	fmt.Println(s, ok)
+
+// 	f, ok := i.(float64)
+// 	fmt.Println(f, ok)
+
+// 	f = i.(float64) // panic
+// 	fmt.Println(f)
+// }
+
+func do(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
 }
 
 func main() {
-	var i I = T{"hello"}
-	i.M()
+	do(21)
+	do("hello")
+	do(true)
 }
