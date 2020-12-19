@@ -7,11 +7,13 @@ import (
 	"image/draw"
 	"image/png"
 	"log"
-	"os"
-	"time"
+	"net/http"
+	"strconv"
 
-	"GitHub.com/golang/freetype"
-	"GitHub.com/golang/freetype/truetype"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/golang/freetype"
+	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/gofont/goregular"
 	"golang.org/x/image/math/fixed"
@@ -84,18 +86,34 @@ func drawText(canvas *image.RGBA, text string) error {
 }
 
 func main() {
-	initials := "LR"
-	size := 200
-	avatar, err := createAvatar(size, initials)
-	if err != nil {
-		log.Fatal(err)
-	}
-	filename := fmt.Sprintf("out-%d.png", time.Now().Unix())
-	file, err := os.Create(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-	png.Encode(file, avatar)
+	// initials := "LR"
+	// size := 200
+	// avatar, err := createAvatar(size, initials)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// filename := fmt.Sprintf("out-%d.png", time.Now().Unix())
+	// file, err := os.Create(filename)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// png.Encode(file, avatar)
+	router := chi.NewRouter()
+	router.Use(middleware.Logger)
+	router.Get("/avatar", func(w http.ResponseWriter, r *http.Request) {
+		initials := r.FormValue("initials")
+		size, err := strconv.Atoi(r.FormValue("size"))
+		if err != nil {
+			size = 200
+		}
+		avatar, err := createAvatar(size, initials)
+		if err != nil {
+			log.Fatal(err)
+		}
+		w.Header().Set("Content-Type", "image/png")
+		png.Encode(w, avatar)
+	})
+	http.ListenAndServe(":3000", router)
 }
 func createAvatar(size int, initials string) (*image.RGBA, error) {
 	width, height := size, size
