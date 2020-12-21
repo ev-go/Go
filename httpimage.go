@@ -61,7 +61,7 @@ func drawText(canvas *image.RGBA, text string) error {
 		fgColor  image.Image
 		fontFace *truetype.Font
 		err      error
-		fontSize = 128.0
+		fontSize = 150.0
 	)
 	fgColor = image.White
 	fontFace, err = freetype.ParseFont(goregular.TTF)
@@ -101,7 +101,8 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Get("/avatar", func(w http.ResponseWriter, r *http.Request) {
-		initials := r.FormValue("initials")
+		//t := time.Now()
+		initials := r.FormValue("initials") //t.String() //r.FormValue("initials")
 		size, err := strconv.Atoi(r.FormValue("size"))
 		if err != nil {
 			size = 200
@@ -127,3 +128,7 @@ func createAvatar(size int, initials string) (*image.RGBA, error) {
 	drawText(background, initials)
 	return background, err
 }
+
+// func GetTime(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Fprintf(w, "Current time is %s\n", time.Now())
+// }
