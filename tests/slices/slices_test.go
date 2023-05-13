@@ -6,7 +6,7 @@ import (
 )
 
 func TestSlices(t *testing.T) {
-	bracketRow := "[(())[]]"
+	bracketRow := "[(())[]()[()]]"
 	ok, err := bracketValidator(bracketRow)
 	fmt.Println(ok, err)
 }
@@ -24,17 +24,19 @@ func bracketValidator(bracketRow string) (bool, error) {
 		if (value == int32(rBrOp[0])) || (value == int32(sBrOp[0])) {
 			validationSlice = append(validationSlice, value)
 			pointer++
-		} else if value == int32(rBrCl[0]) { //) || (value == int32(sBrCl[0])) {
-			prevBr = validationSlice[pointer]
+		} else if value == int32(rBrCl[0]) {
+			prevBr = validationSlice[pointer-1]
 			if prevBr == int32(rBrOp[0]) {
 				pointer--
+				validationSlice = validationSlice[:pointer]
 			} else {
 				return false, nil
 			}
 		} else if value == int32(sBrCl[0]) {
-			prevBr = validationSlice[pointer]
+			prevBr = validationSlice[pointer-1]
 			if prevBr == int32(sBrOp[0]) {
 				pointer--
+				validationSlice = validationSlice[:pointer]
 			} else {
 				return false, nil
 			}
